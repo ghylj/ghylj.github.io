@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2024-08-19T09:14:09.762Z</updated>
+  <updated>2024-08-19T09:17:32.280Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="http://example.com/2024/08/19/%E6%9C%AC%E5%9C%B0Ubuntu%E6%90%AD%E5%BB%BAsqli-labs%E9%9D%B6%E5%9C%BA/"/>
     <id>http://example.com/2024/08/19/%E6%9C%AC%E5%9C%B0Ubuntu%E6%90%AD%E5%BB%BAsqli-labs%E9%9D%B6%E5%9C%BA/</id>
     <published>2024-08-19T03:48:21.701Z</published>
-    <updated>2024-08-19T09:14:09.762Z</updated>
+    <updated>2024-08-19T09:17:32.280Z</updated>
     
     <content type="html"><![CDATA[<blockquote><blockquote><p>#：解决ubuntu不能全屏（安装vmtools失败）</p></blockquote><ul><li>sudo apt-get update</li><li>sudo apt-get install open-vm-tools-desktop</li></ul><p>#：配置网卡（ubuntu在桌面视图不显示网卡图标无法修改）</p><ul><li>点击vm编辑找到虚拟网络编辑器-NAT设置-DNS设置-取消DNS自动检测可用</li></ul><p>#：换源</p><p>#：关闭防火墙</p><ul><li>sudo ufw disable      关闭防火墙</li><li>sudo ufw status        查看是否关闭</li></ul><p>#：安装ssh远程连接服务</p><ul><li>sudo apt install openssh-server安装openssh服务器软件包</li><li>sudo systemctl start ssh                    启动ssh服务</li><li>sudo systemctl enable ssh                开机自启</li><li>sudo ufw allow ssh                            防火墙允许ssh连接</li></ul></blockquote><p>1.安装docker</p><p><a href="https://www.runoob.com/docker/ubuntu-docker-install.html">https://www.runoob.com/docker/ubuntu-docker-install.html</a>(菜鸟教程)</p><blockquote><p>可用镜像源</p><p>vim &#x2F;etc&#x2F;docker&#x2F;daemon.json#修改可用镜像源</p><p>{<br>        “registry-mirrors”:[<br>                “<a href="https://hub.uuuadc.top/">https://hub.uuuadc.top</a>“, “<a href="https://docker.anyhub.us.kg/">https://docker.anyhub.us.kg</a>“, “<a href="https://dockerhub.jobcher.com/">https://dockerhub.jobcher.com</a>“, “<a href="https://dockerhub.icu/">https://dockerhub.icu</a>“, “<a href="https://docker.ckyl.me/">https://docker.ckyl.me</a>“, “<a href="https://docker.awsl9527.cn/">https://docker.awsl9527.cn</a>“<br>        ]<br>}</p></blockquote><p>2.搜索sqli-labs靶场</p><ul><li>docker search sqli-labs</li></ul><p>3.将该靶场拉去到本地</p><ul><li>docker pull acgpiano&#x2F;sqli-labs</li></ul><p>4.查看镜像</p><ul><li>docker images</li></ul><p>5.一条关键命令启动靶场</p><ul><li>docker run -dt –name sqli-labs -p 8081:80 –rm acgpiano&#x2F;sqli-labs</li><li>-dt为后台运行，<br>–name为给该镜像命名（我这里名字命为sqli-labs），<br>-p指定端口，将docker的80端口映射到本机的8081端口，<br>–rm为设置docker在退出时自动清理内部的文件系统。<br>此时我们浏览器输入127.0.0.1:8081即可看到靶场了</li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">docker ps<span class="comment">#查看正在运行的镜像</span></span><br><span class="line">docker <span class="built_in">exec</span> -it [CONTAINER ID] /bin/bash<span class="comment">#即可进入后台,CONTAINER ID用docker ps 查看出sqli-labs服务的id号</span></span><br><span class="line">docker stop sqli-labs<span class="comment">#关闭该靶场</span></span><br><span class="line"><span class="built_in">exit</span><span class="comment">#退出</span></span><br><span class="line"><span class="built_in">sudo</span> service docker restart重启</span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
     
